@@ -21,7 +21,7 @@ class Server {
         this.rutas={
             usuario:'/api/usuario'
         }
-        this.Rutas();
+
     }
 
 

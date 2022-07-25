@@ -1,8 +1,6 @@
 import express, {Application } from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
-import * as routerUsuario  from '../routes/usuario';
-
 
 dotenv.config();
 
@@ -21,7 +19,7 @@ class Server {
         this.rutas={
             usuario:'/api/usuario'
         }
-        this.Rutas();
+
     }
 
 
@@ -39,7 +37,7 @@ class Server {
     }
 
     Rutas(){
-        this.app.use(this.rutas.usuario,routerUsuario.default)
+        this.app.use(this.rutas.usuario,)
     }
 }
 

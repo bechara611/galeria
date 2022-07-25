@@ -1,9 +1,6 @@
 import express, {Application } from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
-import * as routerUsuario  from '../routes/usuario';
-
-
 dotenv.config();
 
 
@@ -13,15 +10,11 @@ class Server {
     numero: number;
     variable: any;
     port: string;
-    rutas:any;
     constructor() {
         this.app = express();
         this.port = process.env.PORT || '8080';
         this.Middlewares();
-        this.rutas={
-            usuario:'/api/usuario'
-        }
-        this.Rutas();
+
     }
 
 
@@ -36,10 +29,6 @@ class Server {
         this.app.listen(this.port, () => {
             console.log(`App corriendo en ${this.port}`)
         })
-    }
-
-    Rutas(){
-        this.app.use(this.rutas.usuario,routerUsuario.default)
     }
 }
 
