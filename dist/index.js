@@ -6,5 +6,4 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const server_1 = __importDefault(require("./models/server"));
 const server = new server_1.default();
 server.Puerto();
-console.log('ts');
 //# sourceMappingURL=index.js.map
