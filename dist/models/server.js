@@ -40,6 +40,7 @@ const cors_1 = __importDefault(require("cors"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const routerUsuario = __importStar(require("../routes/usuario"));
 const routerUsuarioEImagen = __importStar(require("./../routes/usuarioEimagen"));
+const routerLogin = __importStar(require("./../routes/login"));
 const config_1 = require("../db/config");
 dotenv_1.default.config();
 class Server {
@@ -49,7 +50,8 @@ class Server {
         this.Middlewares();
         this.rutas = {
             usuario: '/api/usuario',
-            usuarioEimagen: '/api/imagenes/'
+            usuarioEimagen: '/api/imagenes/',
+            login: '/api/login'
         };
         this.Rutas();
         this.BaseDatos();
@@ -69,6 +71,7 @@ class Server {
     Rutas() {
         this.app.use(this.rutas.usuario, routerUsuario.default);
         this.app.use(this.rutas.usuarioEimagen, routerUsuarioEImagen.default);
+        this.app.use(this.rutas.login, routerLogin.default);
     }
     //acceder a la BD
     BaseDatos() {

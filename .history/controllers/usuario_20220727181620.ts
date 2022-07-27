@@ -89,13 +89,11 @@ const UsuarioPost = async (req: Request, res: Response) => {
 //CONTROLADOR PARA COLOCAR INACTIVO A UN USUARIO
 const UsuarioDelete =async  (req: Request, res: Response) => {    
     const { id } = req.params
-   // const usuario = await Usuario.findByIdAndUpdate(id,{estado:false},{new:true})
-
-   const usuario = await Usuario.findOneAndUpdate({_id:id},{estado:false},{new:true})
+    const usuario = await Usuario.findByIdAndUpdate(id,{estado:false})
 
     if (usuario) {
         res.status(200).json({
-            msg: 'Success-User Deleted',
+            msg: 'Success',
             usuario
         })
     } else {

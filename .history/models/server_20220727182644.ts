@@ -23,7 +23,7 @@ class Server {
         this.rutas={
             usuario:'/api/usuario',
             usuarioEimagen:'/api/imagenes/',
-            login:'/api/login'
+            login:'/api/login/'
         }
         this.Rutas();
         this.BaseDatos();

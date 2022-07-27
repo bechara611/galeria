@@ -95,7 +95,7 @@ const UsuarioDelete =async  (req: Request, res: Response) => {
 
     if (usuario) {
         res.status(200).json({
-            msg: 'Success-User Deleted',
+            msg: 'Success',
             usuario
         })
     } else {
