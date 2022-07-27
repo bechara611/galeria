@@ -16,7 +16,7 @@ const UsuariosGet = async (req: Request, res: Response) => {
             for (let prop in Usuarios) {
                 correos.push(Usuarios[prop].correo)
             }
-          
+            console.log(Usuarios[0].password)
 
             res.status(200).json({
                 Total,

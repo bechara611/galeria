@@ -16,7 +16,6 @@ const UsuariosGet = async (req: Request, res: Response) => {
             for (let prop in Usuarios) {
                 correos.push(Usuarios[prop].correo)
             }
-          
 
             res.status(200).json({
                 Total,
