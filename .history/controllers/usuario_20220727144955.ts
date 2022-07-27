@@ -8,18 +8,19 @@ const UsuariosGet = async (req: Request, res: Response) => {
     try {
         let correos: Array<string> = [];
         const Usuarios = await Usuario.find();
-       
         const Total = await Usuario.countDocuments();
 
         if (Usuarios) {
 
             for (let prop in Usuarios) {
                 correos.push(Usuarios[prop].correo)
+
             }
+
 
             res.status(200).json({
                 Total,
-                correos,
+                correos
             })
         }
 

@@ -8,7 +8,6 @@ const UsuariosGet = async (req: Request, res: Response) => {
     try {
         let correos: Array<string> = [];
         const Usuarios = await Usuario.find();
-       
         const Total = await Usuario.countDocuments();
 
         if (Usuarios) {
@@ -19,7 +18,7 @@ const UsuariosGet = async (req: Request, res: Response) => {
 
             res.status(200).json({
                 Total,
-                correos,
+                correos
             })
         }
 

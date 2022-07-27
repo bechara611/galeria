@@ -5,6 +5,22 @@ const UsuarioSchema = new mongoose_1.Schema({
     nombre: {
         type: String,
         required: [true, 'Incomplete data: Name']
+    },
+    correo: {
+        type: String,
+        required: [true, 'Incomplete data: Email']
+    },
+    password: {
+        type: String,
+        required: [true, 'Incomplete data: Password']
+    },
+    estado: {
+        type: Boolean,
+        default: true,
+    },
+    google: {
+        type: Boolean,
+        default: false
     }
 });
 exports.default = (0, mongoose_1.model)('Usuario', UsuarioSchema);

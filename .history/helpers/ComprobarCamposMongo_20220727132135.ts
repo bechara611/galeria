@@ -1,0 +1,5 @@
+const ComprobarCampo=()=>{
+
+}
+
+export {ComprobarCampo}

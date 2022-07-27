@@ -16,9 +16,9 @@ const comprobarCampos=(req:Request,res:Response,next)=>{
 //metodo para comprobar si el correo existe ya previamente registrado
 const comprobarUsuarioCorreo=async(email:any)=>{
   try {
-   const usuario = await Usuario.findOne({correo:email.toLowerCase()})
+   const usuario = await Usuario.findOne({correo:email})
     if(usuario){
-      return true
+      return usuario
     }
     else{
       return null
