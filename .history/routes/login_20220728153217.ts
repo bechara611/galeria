@@ -7,8 +7,7 @@ import { comprobarCampos } from '../helpers/expressValidator';
 const router = Router();
 
 router.get('/',[
-    check('email','PLEASE, INSERT A VALID EMAIL').isEmail(),
-    check('password','PLEASE, INSERT A PASSWORD').not().isEmpty(),
+    check('email').isEmail(),
     comprobarCampos,
 ],getLogin)
 

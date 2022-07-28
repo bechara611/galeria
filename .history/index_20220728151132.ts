@@ -2,7 +2,7 @@ import Server from "./models/server"
 
 const server= new Server();
 
-//variables globales
+
 declare global {
     var ID_user_mongo: any;
   }
@@ -10,6 +10,6 @@ declare global {
 
 
 
-//ejecutar el servidor
+
 server.Puerto();
 

@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { comprobarUsuarioCorreo } from "../helpers/expressValidator";
 import { HacerLogin } from "../helpers/JWTyLogin";
 
-const getLogin=async(req:Request,res:Response)=>{
+const getLogin=async(req:any,res:Response)=>{
 
     const {email,password}=req.query
 
@@ -11,7 +11,7 @@ const getLogin=async(req:Request,res:Response)=>{
    const existeCorreo=await  comprobarUsuarioCorreo(email);
    if (!existeCorreo) {
     return res.status(400).json({
-        errors: {
+        Error: {
             msg: 'USER NOT FOUND'
         }
     })
@@ -24,17 +24,18 @@ const getLogin=async(req:Request,res:Response)=>{
    if(!usuario){
     //SI EL USUARIO Y LA CONTRASENA NO SON, ENTONCES DEVOLVERA ESE MENSAJE
     return res.status(400).json({
-        errors: {
+        Error: {
             msg: 'INCORRECT PASSWORD'
         }
     })
    }
-
+   req.uid=usuario.uid;
     res.status(200).json({
         msg:'Success get login',
-        idGlobal:global.ID_user_mongo,
+        email,
+        password,
         usuario,
-  
+        idd:req.uid
     })
 }
 

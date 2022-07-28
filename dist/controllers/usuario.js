@@ -36,7 +36,7 @@ const UsuariosGet = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
     catch (error) {
         res.status(400).json({
-            Error: {
+            errors: {
                 msg: error
             }
         });
@@ -80,7 +80,7 @@ const UsuarioPost = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
     catch (error) {
         res.status(200).json({
-            Error: {
+            errors: {
                 msg: error
             }
         });
@@ -99,7 +99,7 @@ const UsuarioDelete = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         });
     }
     else {
-        return res.status(400).json({ error: { msg: 'User not found' } });
+        return res.status(400).json({ errors: { msg: 'User not found' } });
     }
 });
 exports.UsuarioDelete = UsuarioDelete;
