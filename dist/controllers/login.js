@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getLogin = void 0;
 const expressValidator_1 = require("../helpers/expressValidator");
+const JWT_1 = require("../helpers/JWT");
 const JWTyLogin_1 = require("../helpers/JWTyLogin");
 const getLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.query;
@@ -34,10 +35,12 @@ const getLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             }
         });
     }
+    const Token = yield (0, JWT_1.GenerarJWT)(global.ID_user_mongo);
     res.status(200).json({
         msg: 'Success get login',
         idGlobal: global.ID_user_mongo,
         usuario,
+        Token
     });
 });
 exports.getLogin = getLogin;

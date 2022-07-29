@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { comprobarUsuarioCorreo } from "../helpers/expressValidator";
-import { GenerarJWT } from "../helpers/JWT";
 import { HacerLogin } from "../helpers/JWTyLogin";
 
 const getLogin=async(req:Request,res:Response)=>{
@@ -30,14 +29,11 @@ const getLogin=async(req:Request,res:Response)=>{
         }
     })
    }
-   const Token = await GenerarJWT(global.ID_user_mongo)
-   
-   
+
     res.status(200).json({
         msg:'Success get login',
         idGlobal:global.ID_user_mongo,
         usuario,
-        Token
   
     })
 }

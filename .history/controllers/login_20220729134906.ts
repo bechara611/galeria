@@ -30,9 +30,9 @@ const getLogin=async(req:Request,res:Response)=>{
         }
     })
    }
-   const Token = await GenerarJWT(global.ID_user_mongo)
-   
-   
+   const Token = await GenerarJWT(usuario._id)
+
+
     res.status(200).json({
         msg:'Success get login',
         idGlobal:global.ID_user_mongo,
