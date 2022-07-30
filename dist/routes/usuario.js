@@ -29,13 +29,18 @@ router.delete('/:id', [
     expressValidator_1.comprobarCampos,
 ], usuario_1.UsuarioDelete);
 //ruta para actualizar un usuario
-router.put('/:id', [
+router.put('/', [
     //TODO luego de tener todos los checks del mongoID y eso debes habilitar aca y en todos la comprobacion
     //    check('id','Incorrect MONGO ID').isMongoId(),
     (0, express_validator_1.check)('nombre', 'Name must have a value.').not().isEmpty(),
     (0, express_validator_1.check)('password', 'Password must have a value').not().isEmpty(),
     (0, express_validator_1.check)('correo', 'email must have a correct value').isEmail(),
+    (0, express_validator_1.check)('nueva_password', 'New password must have a value').not().isEmpty(),
     expressValidator_1.comprobarCampos,
 ], usuario_1.UsuarioPut);
+router.post('/recuperar/', [
+    (0, express_validator_1.check)('email', 'email must have a correct value').isEmail(),
+    expressValidator_1.comprobarCampos,
+], usuario_1.RecuperarPassword);
 exports.default = router;
 //# sourceMappingURL=usuario.js.map

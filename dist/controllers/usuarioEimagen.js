@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getUsuarioEimagenesPorId = exports.getUsuarioEimagenes = void 0;
 const getUsuarioEimagenes = (req, res) => {
+    //  console.log(imagenes)
     res.json({ msg: 'GET DE TODAS LAS IMAGENES Y USUARIOS' });
 };
 exports.getUsuarioEimagenes = getUsuarioEimagenes;

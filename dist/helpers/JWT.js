@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.verificarJWT = exports.GenerarJWT = void 0;
+exports.verificarYretornarJWT = exports.verificarJWT = exports.GenerarJWT = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
@@ -36,6 +36,7 @@ const verificarJWT = (req, res, next) => {
         else {
             const payload = jsonwebtoken_1.default.verify(Token, process.env.claveJWT);
             //   console.log(payload.uid)
+            global.ID_user_mongo = payload.uid;
             next();
         }
     }
@@ -48,4 +49,22 @@ const verificarJWT = (req, res, next) => {
     }
 };
 exports.verificarJWT = verificarJWT;
+const verificarYretornarJWT = (token) => {
+    try {
+        const Token = token;
+        if (!Token) {
+            return null;
+        }
+        else {
+            const payload = jsonwebtoken_1.default.verify(Token, process.env.claveJWT);
+            //   console.log(payload.uid)
+            global.ID_user_mongo = payload.uid;
+            return payload;
+        }
+    }
+    catch (error) {
+        return null;
+    }
+};
+exports.verificarYretornarJWT = verificarYretornarJWT;
 //# sourceMappingURL=JWT.js.map

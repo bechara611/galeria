@@ -41,7 +41,9 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const routerUsuario = __importStar(require("../routes/usuario"));
 const routerUsuarioEImagen = __importStar(require("./../routes/usuarioEimagen"));
 const routerLogin = __importStar(require("./../routes/login"));
+const routerUpload = __importStar(require("./../routes/upload"));
 const config_1 = require("../db/config");
+const express_fileupload_1 = __importDefault(require("express-fileupload"));
 dotenv_1.default.config();
 class Server {
     constructor() {
@@ -51,7 +53,8 @@ class Server {
         this.rutas = {
             usuario: '/api/usuario',
             usuarioEimagen: '/api/imagenes/',
-            login: '/api/login'
+            login: '/api/login',
+            upload: '/api/upload'
         };
         this.Rutas();
         this.BaseDatos();
@@ -62,6 +65,11 @@ class Server {
         //middleware del cors para que cualquiera pueda acceder a nuestreo restserver
         this.app.use((0, cors_1.default)());
         this.app.use(express_1.default.json());
+        this.app.use((0, express_fileupload_1.default)({
+            useTempFiles: true,
+            tempFileDir: '/tmp/',
+            createParentPath: true //que el .mv al guardar el archivo pueda crear la carpeta si no existe
+        }));
     }
     Puerto() {
         this.app.listen(this.port, () => {
@@ -72,6 +80,7 @@ class Server {
         this.app.use(this.rutas.usuario, routerUsuario.default);
         this.app.use(this.rutas.usuarioEimagen, routerUsuarioEImagen.default);
         this.app.use(this.rutas.login, routerLogin.default);
+        this.app.use(this.rutas.upload, routerUpload.default);
     }
     //acceder a la BD
     BaseDatos() {

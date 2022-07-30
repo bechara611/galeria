@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UsuariosGet = exports.UsuarioPut = exports.UsuarioDelete = exports.UsuarioPost = exports.UsuarioGet = void 0;
+exports.RecuperarPassword = exports.UsuariosGet = exports.UsuarioPut = exports.UsuarioDelete = exports.UsuarioPost = exports.UsuarioGet = void 0;
 const expressValidator_1 = require("../helpers/expressValidator");
 const Usuario_1 = __importDefault(require("../models/Usuario"));
 //CONTROLADOR PARA TODOS LOS USUARIOS
@@ -64,7 +64,7 @@ const UsuarioPost = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     const { nombre, correo, password } = req.body;
     const existe = yield (0, expressValidator_1.comprobarUsuarioCorreo)(correo);
     if (existe) {
-        return res.status(400).json({ error: { msg: 'Email already exists' } });
+        return res.status(400).json({ errors: { msg: 'Email already exists' } });
     }
     try {
         const usuario = new Usuario_1.default({
@@ -104,16 +104,56 @@ const UsuarioDelete = (req, res) => __awaiter(void 0, void 0, void 0, function* 
 });
 exports.UsuarioDelete = UsuarioDelete;
 //CONTROLADOR PARA ACTUALIZAR UN USUARIO
-const UsuarioPut = (req, res) => {
-    const { nombre, correo, password } = req.body;
-    const { id } = req.params;
-    res.json({
-        msg: 'PUT DE USUARIOS',
-        nombre: nombre.toUpperCase(),
-        correo: correo.toLowerCase(),
-        password,
-        id
-    });
-};
+const UsuarioPut = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { correo, password, nueva_password } = req.body;
+    //comprobamos si existe el email
+    try {
+        const existe = yield (0, expressValidator_1.comprobarUsuarioCorreo)(correo);
+        if (!existe) {
+            return res.status(400).json({ errors: { msg: 'Email not found' } });
+        }
+        //comprobamos si es la contrasena
+        const usuario = yield Usuario_1.default.findOne({
+            correo: correo.toLowerCase(),
+            password: password
+        });
+        if (!usuario) {
+            return res.status(400).json({ errors: { msg: 'INCORRECT PASSWORD' } });
+        }
+        //cambiamos la contrasena
+        const usuarioNuevo = yield Usuario_1.default.findOneAndUpdate({
+            correo: correo.toLowerCase(),
+            password: password
+        }, {
+            password: nueva_password
+        }, { new: true });
+        res.status(200).json({
+            msg: 'SUCCESS',
+            usuarioNuevo
+        });
+    }
+    catch (error) {
+        return res.status(400).json({ errors: { msg: `Error en el trycatch del put de change password ${error}` } });
+    }
+});
 exports.UsuarioPut = UsuarioPut;
+const RecuperarPassword = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { email } = req.query;
+    try {
+        const existe = yield (0, expressValidator_1.comprobarUsuarioCorreo)(email);
+        if (existe) {
+            return res.status(400).json({ errors: { msg: 'Email already exists' } });
+        }
+        //TODO METODO DE ENVIAR PASSWORD
+        //METODO DE ENVIAR EL PASSWORD ACTUAL   POR CORREO
+        res.status(200).json({
+            msg: 'The password was send to the email. Please check.',
+            email
+        });
+    }
+    catch (error) {
+        return res.status(400).json({ errors: { msg: `Error en el metodo de recuperar el password   ${error}` } });
+    }
+});
+exports.RecuperarPassword = RecuperarPassword;
 //# sourceMappingURL=usuario.js.map
