@@ -141,8 +141,8 @@ const RecuperarPassword = (req, res) => __awaiter(void 0, void 0, void 0, functi
     const { email } = req.query;
     try {
         const existe = yield (0, expressValidator_1.comprobarUsuarioCorreo)(email);
-        if (existe) {
-            return res.status(400).json({ errors: { msg: 'Email already exists' } });
+        if (!existe) {
+            return res.status(400).json({ errors: { msg: 'Email NOT FOUND' } });
         }
         //TODO METODO DE ENVIAR PASSWORD
         //METODO DE ENVIAR EL PASSWORD ACTUAL   POR CORREO
