@@ -13,9 +13,9 @@ const EnviarCorreo=async (email=null)=>{
     }
 });
 //creamos el mensaje
-var mensaje='Mensaje desde node';
+var mensaje='';
 //creamos el asunto
-var asunto='MENSAJE DESDE NODE'
+var asunto=''
 
 //Creamos las opciones
 var mailOptions = {

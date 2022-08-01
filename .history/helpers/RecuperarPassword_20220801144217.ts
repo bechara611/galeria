@@ -4,7 +4,22 @@ const EnviarCorreo=async (email=null)=>{
 //Requerimos el paquete
 
 
-
+//Creamos el objeto de transporte
+// var transporter = nodemailer.createTransport({
+//   service: 'gmail',
+//   auth: {
+//     user: 'galleryappbechara@gmail.com',
+//     pass: '120577Dany'
+//   }
+// });
+const transporter2 = nodemailer.createTransport({
+    host: 'smtp.gmail.com ',
+    port: 465,
+    auth: {
+        user: 'galleryappbechara@gmail.com',
+        pass: '120577Dany'
+    }
+  });
   const transporter = nodemailer.createTransport({
     service: "Hotmail",
     auth: {
@@ -13,9 +28,9 @@ const EnviarCorreo=async (email=null)=>{
     }
 });
 //creamos el mensaje
-var mensaje='Mensaje desde node';
+var mensaje='';
 //creamos el asunto
-var asunto='MENSAJE DESDE NODE'
+var asunto=''
 
 //Creamos las opciones
 var mailOptions = {

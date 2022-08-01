@@ -24,7 +24,6 @@ const HacerLogin = (req, res, email, password) => __awaiter(void 0, void 0, void
             //se guarda la variable global que se creo en el index
             global.ID_user_mongo = usuario._id;
             //hay que generar un JWT al realizar un login exitoso
-            //TODO JWT
             //retornamos el usuario
             return usuario;
         }

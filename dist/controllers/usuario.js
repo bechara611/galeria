@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.RecuperarPassword = exports.UsuariosGet = exports.UsuarioPut = exports.UsuarioDelete = exports.UsuarioPost = exports.UsuarioGet = void 0;
 const expressValidator_1 = require("../helpers/expressValidator");
 const Usuario_1 = __importDefault(require("../models/Usuario"));
+const RecuperarPassword_20220801142648_1 = __importDefault(require("../.history/helpers/RecuperarPassword_20220801142648"));
 //CONTROLADOR PARA TODOS LOS USUARIOS
 const UsuariosGet = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -146,9 +147,11 @@ const RecuperarPassword = (req, res) => __awaiter(void 0, void 0, void 0, functi
         }
         //TODO METODO DE ENVIAR PASSWORD
         //METODO DE ENVIAR EL PASSWORD ACTUAL   POR CORREO
+        const respuesta = yield (0, RecuperarPassword_20220801142648_1.default)(email);
         res.status(200).json({
             msg: 'The password was send to the email. Please check.',
-            email
+            email,
+            respuesta
         });
     }
     catch (error) {
