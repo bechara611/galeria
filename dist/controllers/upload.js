@@ -8,9 +8,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.postUpload = void 0;
 const JWT_1 = require("../helpers/JWT");
+const UsuarioEimagen_1 = __importDefault(require("../models/UsuarioEimagen"));
 const postUpload = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { archivo } = req.files;
@@ -34,10 +38,18 @@ const postUpload = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         const Payload = yield (0, JWT_1.verificarYretornarJWT)(token);
         console.log(Payload);
         //-----------------------------------------------------------------------------------------
-        // console.log(archivo)
+        // ACA POR CADA IMAGEN QUE SE HAYA CARGADO AL REQ.FILES, se va a ejecutar el codigo de cloudinary
         for (let imagen in archivo) {
             console.log(archivo[imagen].tempFilePath);
         }
+        //---------------------------------------------------------------------------------------------
+        //aca guardas la informacion generada de cloudinary y el usuario que hizo login y paso el x-token por el header
+        const usuarioImagenGuardar = new UsuarioEimagen_1.default({
+            usuario: ID_user_mongo,
+            img: 'https://blog.aashish-panthi.com.np/_next/image?url=https%3A%2F%2Fcdn.hashnode.com%2Fres%2Fhashnode%2Fimage%2Fupload%2Fv1656265103791%2FHZfkKUGIv.jpg%3Fw%3D200%26h%3D200%26fit%3Dcrop%26crop%3Dfaces%26auto%3Dcompress%2Cformat%26format%3Dwebp&w=256&q=75'
+        });
+        yield usuarioImagenGuardar.save();
+        //--------------------------------------------------
         return res.json({ msg: 'IMAGEN PASO LA PRUEBA', ID_user_mongo, archivo });
     }
     catch (error) {
