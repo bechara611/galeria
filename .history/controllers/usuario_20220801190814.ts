@@ -1,9 +1,7 @@
 import { Request, Response } from "express";
 import { comprobarUsuarioCorreo } from "../helpers/expressValidator";
-import EnviarCorreo2 from "../helpers/RecuperarPassword";
 import Usuario from "../models/Usuario";
-
-
+import EnviarCorreo from '../.history/helpers/RecuperarPassword_20220801142648';
 
 //CONTROLADOR PARA TODOS LOS USUARIOS
 const UsuariosGet = async (req: Request, res: Response) => {
@@ -155,19 +153,12 @@ const RecuperarPassword = async(req: Request, res: Response)=>{
 
     //TODO METODO DE ENVIAR PASSWORD
 //METODO DE ENVIAR EL PASSWORD ACTUAL   POR CORREO
-    const respuesta= await EnviarCorreo2(email);
-
-    if(!respuesta){
-        return res.status(400).json({ errors: { msg: `INTERNAL ERROR: RECOVERY PASSWORD` } })
-    }
-
-    
+    const respuesta= await EnviarCorreo(email)
     res.status(200).json({
         msg:'The password was send to the email. Please check.',
         email,
         respuesta
-       })  
-   
+       })
  } catch (error) {
     return res.status(400).json({ errors: { msg: `Error en el metodo de recuperar el password   ${error}` } })
  }

@@ -37,7 +37,7 @@ try {
              }
          });
         
-        return true
+        
         }
         
  catch (error) {

@@ -13,36 +13,43 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const nodemailer_1 = __importDefault(require("nodemailer"));
-const EnviarCorreo = (email = null) => __awaiter(void 0, void 0, void 0, function* () {
-    //Requerimos el paquete
-    const transporter = nodemailer_1.default.createTransport({
-        service: "Hotmail",
-        auth: {
-            user: "galleryappbechara@hotmail.com",
-            pass: "120577Dany"
-        }
-    });
-    //creamos el mensaje
-    var mensaje = 'Mensaje desde node';
-    //creamos el asunto
-    var asunto = 'MENSAJE DESDE NODE';
-    //Creamos las opciones
-    var mailOptions = {
-        from: 'galleryappbechara@gmail.com',
-        to: email,
-        subject: asunto,
-        text: mensaje
-    };
-    //ejecutamos 
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-            console.log(error);
-        }
-        else {
-            console.log(info.response);
-            return info.response;
-        }
-    });
+const EnviarCorreo2 = (email = null) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        //Requerimos el paquete
+        var transporter = nodemailer_1.default.createTransport({
+            service: 'Gmail',
+            auth: {
+                user: 'bechara611@gmail.com',
+                pass: 'zdchmvaxuwrmvjpa'
+            }
+        });
+        //creamos el mensaje
+        var mensaje = 'Mensaje desde node';
+        //creamos el asunto
+        var asunto = 'MENSAJE DESDE NODE';
+        //Creamos las opciones
+        var mailOptions = {
+            from: 'bechara611@gmail.com',
+            to: email,
+            subject: asunto,
+            text: mensaje
+        };
+        //ejecutamos 
+        yield transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                return null;
+                console.log(error);
+            }
+            else {
+                //  console.log(info)
+                return true;
+            }
+        });
+        return true;
+    }
+    catch (error) {
+        return null;
+    }
 });
-exports.default = EnviarCorreo;
+exports.default = EnviarCorreo2;
 //# sourceMappingURL=RecuperarPassword.js.map

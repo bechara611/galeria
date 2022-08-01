@@ -29,7 +29,6 @@ try {
           //ejecutamos 
       await   transporter.sendMail(mailOptions, (error, info) => {
              if (error) {
-                return null
                  console.log(error);
              } else {
                //  console.log(info)
@@ -37,7 +36,7 @@ try {
              }
          });
         
-        return true
+        
         }
         
  catch (error) {
