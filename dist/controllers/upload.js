@@ -78,35 +78,47 @@ const postUpload = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                 yield usuarioImagenGuardar.save();
             }))
                 .catch((error) => { return console.log(error); });
-            return res.status(200).json({ msg: 'SUCCESS', ID_user_mongo, imagenes });
+            return res.status(200).json({ msg: 'SUCCESS', ID_user_mongo });
         }
         //ahora aca yo coloca si el numero de llaves o propiedades es igual o mayor a dos, ya que
         //cuando se sube mas de 1 archivo, las propiedades se agrupan entonces ya es distinto
         //y coloco tambien que sea diferente a 9 porque yo se que haciendo pruebas, el 9 de 
         //numero de propiedades, es unicamente cuando se sube 1 archivo.
         if (Object.keys(imagenes).length >= 2 && Object.keys(imagenes).length != 9) {
-            for (let imagen in imagenes) {
-                //  console.log(imagenes[imagen].tempFilePath)
-                const respuesta = yield cloudinary_1.default.v2.uploader.upload(imagenes[imagen].tempFilePath)
-                    .then((data) => __awaiter(void 0, void 0, void 0, function* () {
-                    //    console.log(imagenes[imagen].tempFilePath)
-                    //  console.log(data.secure_url)
-                    img = data.secure_url;
-                    const usuarioImagenGuardar = new UsuarioEimagen_1.default({
-                        usuario: ID_user_mongo,
-                        img: img
-                    });
-                    yield usuarioImagenGuardar.save();
-                }))
-                    .catch((error) => { console.log(error); });
-                // console.log(archivo[imagen].tempFilePath)
+            let promesa = yield (0, comprobarExtensionImagen_1.comprobarExtensionImagen2)(imagenes)
+                .then((data) => { return data; })
+                .catch((error) => { return error; });
+            if (!promesa) {
+                return res.status(400).json({
+                    errors: {
+                        msg: 'ext no valida'
+                    }
+                });
             }
-            //si solamente hay un archivo......
+            else {
+                for (let imagen in imagenes) {
+                    //  console.log(imagenes[imagen].tempFilePath)
+                    const respuesta = yield cloudinary_1.default.v2.uploader.upload(imagenes[imagen].tempFilePath)
+                        .then((data) => __awaiter(void 0, void 0, void 0, function* () {
+                        //    console.log(imagenes[imagen].tempFilePath)
+                        //  console.log(data.secure_url)
+                        img = data.secure_url;
+                        const usuarioImagenGuardar = new UsuarioEimagen_1.default({
+                            usuario: ID_user_mongo,
+                            img: img
+                        });
+                        yield usuarioImagenGuardar.save();
+                    }))
+                        .catch((error) => { console.log(error); });
+                    // console.log(archivo[imagen].tempFilePath)
+                }
+                //si solamente hay un archivo......
+            }
+            //---------------------------------------------------------------------------------------------
+            //aca guardas la informacion generada de cloudinary y el usuario que hizo login y paso el x-token por el header
+            //--------------------------------------------------
+            return res.status(200).json({ msg: 'SUCCESS', ID_user_mongo });
         }
-        //---------------------------------------------------------------------------------------------
-        //aca guardas la informacion generada de cloudinary y el usuario que hizo login y paso el x-token por el header
-        //--------------------------------------------------
-        return res.status(200).json({ msg: 'SUCCESS', ID_user_mongo });
     }
     catch (error) {
         return res.status(400).json({

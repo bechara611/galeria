@@ -74,7 +74,7 @@ const postUpload = async (req: Request, res: Response) => {
                 })
                 .catch((error)=>{return console.log(error)});
 
-                return res.status(200).json({ msg: 'SUCCESS', ID_user_mongo })
+                return res.status(200).json({ msg: 'SUCCESS', ID_user_mongo, imagenes })
             }
             //ahora aca yo coloca si el numero de llaves o propiedades es igual o mayor a dos, ya que
             //cuando se sube mas de 1 archivo, las propiedades se agrupan entonces ya es distinto

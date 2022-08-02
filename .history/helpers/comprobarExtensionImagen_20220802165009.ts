@@ -17,21 +17,23 @@ const comprobarExtensionImagen1=async(file:any)=>{
 
 const comprobarExtensionImagen2=async(file:[any])=>{
     const extensionesValida=['jpeg','jpg','png','gif','ico']
-    let comprobar=true;
-   
+    let comprobar=1;
     return new Promise((resolve,reject)=>{
         for(let elemento in file){
-          
             const nombreConExtension=file[elemento].name.split('.')
             const extension=nombreConExtension[nombreConExtension.length-1];
             if(!extensionesValida.includes(extension)){
-                reject(null)
-                
+                comprobar=null
+                return
             }
             
         }
-        resolve(true)
-        
+        if(comprobar===null){
+            reject(null)
+        }
+        if(comprobar===null){
+            resolve(true)
+        }
        
     })
 }

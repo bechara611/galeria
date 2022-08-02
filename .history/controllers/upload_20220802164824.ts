@@ -3,7 +3,7 @@ import { verificarYretornarJWT } from "../helpers/JWT";
 import UsuarioEimagen from "../models/UsuarioEimagen";
 import cloudinary from 'cloudinary'
 import fileUpload from "express-fileupload";
-import { comprobarExtensionImagen1, comprobarExtensionImagen2 } from "../helpers/comprobarExtensionImagen";
+import { comprobarExtensionImagen1 } from "../helpers/comprobarExtensionImagen";
 
 cloudinary.v2.config(process.env.CLOUDINARY_URL);
 const postUpload = async (req: Request, res: Response) => {
@@ -74,24 +74,14 @@ const postUpload = async (req: Request, res: Response) => {
                 })
                 .catch((error)=>{return console.log(error)});
 
-                return res.status(200).json({ msg: 'SUCCESS', ID_user_mongo })
+                return res.status(200).json({ msg: 'SUCCESS', ID_user_mongo, imagenes })
             }
             //ahora aca yo coloca si el numero de llaves o propiedades es igual o mayor a dos, ya que
             //cuando se sube mas de 1 archivo, las propiedades se agrupan entonces ya es distinto
             //y coloco tambien que sea diferente a 9 porque yo se que haciendo pruebas, el 9 de 
             //numero de propiedades, es unicamente cuando se sube 1 archivo.
         if (Object.keys(imagenes).length>=2 && Object.keys(imagenes).length!=9) {
-             
-            let promesa= await comprobarExtensionImagen2(imagenes)
-                .then((data)=>{return data})
-                .catch((error)=>{return error})
-        if(!promesa){
-            return res.status(400).json({
-                errors: {
-                    msg: 'ext no valida'
-                }
-            })
-        }else{
+            
             for (let imagen in imagenes) {
               //  console.log(imagenes[imagen].tempFilePath)
                 const respuesta = await cloudinary.v2.uploader.upload(imagenes[imagen].tempFilePath)
@@ -117,7 +107,7 @@ const postUpload = async (req: Request, res: Response) => {
         //aca guardas la informacion generada de cloudinary y el usuario que hizo login y paso el x-token por el header
         //--------------------------------------------------
         return res.status(200).json({ msg: 'SUCCESS', ID_user_mongo})
-    }
+
     } catch (error) {
         return res.status(400).json({
             errors: {

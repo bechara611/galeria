@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.comprobarExtensionImagen1 = void 0;
+exports.comprobarExtensionImagen2 = exports.comprobarExtensionImagen1 = void 0;
 const comprobarExtensionImagen1 = (file) => __awaiter(void 0, void 0, void 0, function* () {
     const nombreConExtension = file.split('.');
     const extensionesValida = ['jpeg', 'jpg', 'png', 'gif', 'ico'];
@@ -22,4 +22,19 @@ const comprobarExtensionImagen1 = (file) => __awaiter(void 0, void 0, void 0, fu
     });
 });
 exports.comprobarExtensionImagen1 = comprobarExtensionImagen1;
+const comprobarExtensionImagen2 = (file) => __awaiter(void 0, void 0, void 0, function* () {
+    const extensionesValida = ['jpeg', 'jpg', 'png', 'gif', 'ico'];
+    let comprobar = true;
+    return new Promise((resolve, reject) => {
+        for (let elemento in file) {
+            const nombreConExtension = file[elemento].name.split('.');
+            const extension = nombreConExtension[nombreConExtension.length - 1];
+            if (!extensionesValida.includes(extension)) {
+                reject(null);
+            }
+        }
+        resolve(true);
+    });
+});
+exports.comprobarExtensionImagen2 = comprobarExtensionImagen2;
 //# sourceMappingURL=comprobarExtensionImagen.js.map
