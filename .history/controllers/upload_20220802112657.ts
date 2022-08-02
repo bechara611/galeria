@@ -56,7 +56,6 @@ const postUpload = async (req: Request, res: Response) => {
             }
             //si solamente hay un archuivo
         }
-        //SI HAY UN SOLO ARCHIVO EN LA REQ.FILES
          if (Object.keys(req.files).length === 1) {
             const { tempFilePath } = req.files.imagenes as fileUpload.UploadedFile
             const respuesta = await cloudinary.v2.uploader.upload(tempFilePath)
