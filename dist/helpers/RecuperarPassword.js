@@ -13,26 +13,59 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const nodemailer_1 = __importDefault(require("nodemailer"));
+const Usuario_1 = __importDefault(require("../models/Usuario"));
 const EnviarCorreo2 = (email = null) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        const usuario = yield Usuario_1.default.findOne({ correo: email });
         //Requerimos el paquete
         var transporter = nodemailer_1.default.createTransport({
-            service: 'Gmail',
+            service: 'Hotmail',
             auth: {
-                user: 'bechara611@gmail.com',
-                pass: 'zdchmvaxuwrmvjpa'
+                user: 'galleryappbechara@hotmail.com',
+                pass: 'nicwkzqysyegrlzp'
             }
         });
         //creamos el mensaje
-        var mensaje = 'Mensaje desde node';
+        var mensaje = `
+        ******************YOUR PASSWORD FOR GALLERY APP********************
+                ${usuario.password}
+        *******************************************************************      
+
+        Ing. Dany Bechara.
+        `;
         //creamos el asunto
-        var asunto = 'MENSAJE DESDE NODE';
+        var asunto = 'RECOVERY PASSWORD FROM GALLERY APP';
         //Creamos las opciones
         var mailOptions = {
-            from: 'bechara611@gmail.com',
+            from: 'GALLERY APP',
             to: email,
             subject: asunto,
-            text: mensaje
+            text: mensaje,
+            html: `
+            <div style="background:gray;min-width: 100vw; display:flex;justify-content: center;
+            text-align: center;
+            ">
+            <p style="color:pink; justify-content:center";
+            text-align: center;
+            ;>RECOVERY PASSWORD</p>
+            </div>
+            <h1 style=" text-align: center;;>Gallery App</h1>
+            <h3 style="color:red">YOUR PASSWORD IS:<p style="color:blue">${usuario.password}</p></h3>
+            <p>If you didn't request this code, you can ignore this email. Someone else may have entered your email address by mistake.
+            <br>
+            <br>
+            </p>
+            <br>
+            <br>
+            <br>
+            <p>Thank you,
+            Dany Bechara</p>
+            <div style="background:gray;min-width: 100vw; display:flex; justify-content: center; text-align: center;">
+            <p style="color:white; justify-content:center";
+            text-align: center;
+            font-size:15px;
+            >Gallery App</p>
+            </div>`
         };
         //ejecutamos 
         yield transporter.sendMail(mailOptions, (error, info) => {
@@ -41,7 +74,7 @@ const EnviarCorreo2 = (email = null) => __awaiter(void 0, void 0, void 0, functi
                 console.log(error);
             }
             else {
-                //  console.log(info)
+                // console.log(info)
                 return true;
             }
         });

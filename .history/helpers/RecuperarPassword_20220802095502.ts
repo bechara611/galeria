@@ -64,7 +64,7 @@ try {
                 return null
                  console.log(error);
              } else {
-                // console.log(info)
+                 console.log(info)
                  return true;
              }
          });

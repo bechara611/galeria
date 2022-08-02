@@ -39,21 +39,17 @@ try {
             text-align: center;
             ;>RECOVERY PASSWORD</p>
             </div>
-            <h1 style=" text-align: center;;>Gallery App</h1>
-            <h3 style="color:red">YOUR PASSWORD IS:<p style="color:blue">${usuario.password}</p></h3>
+            <h1>Gallery App</h1>
+            <h3 style="color:red">Dany Bechara</h3>
             <p>If you didn't request this code, you can ignore this email. Someone else may have entered your email address by mistake.
-            <br>
-            <br>
-            </p>
-            <br>
-            <br>
-            <br>
-            <p>Thank you,
+
+            Thank you,
             Dany Bechara</p>
-            <div style="background:gray;min-width: 100vw; display:flex; justify-content: center; text-align: center;">
+            
+            <div style="background:gray;min-width: 100vw; display:flex; justify-content: center;">
             <p style="color:white; justify-content:center";
             text-align: center;
-            font-size:15px;
+            justify-content:center;
             >Gallery App</p>
             </div>`
           };
@@ -64,7 +60,7 @@ try {
                 return null
                  console.log(error);
              } else {
-                // console.log(info)
+                 console.log(info)
                  return true;
              }
          });

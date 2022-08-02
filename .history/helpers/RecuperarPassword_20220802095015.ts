@@ -53,7 +53,7 @@ try {
             <div style="background:gray;min-width: 100vw; display:flex; justify-content: center; text-align: center;">
             <p style="color:white; justify-content:center";
             text-align: center;
-            font-size:15px;
+            font-size:20px;
             >Gallery App</p>
             </div>`
           };
@@ -64,7 +64,7 @@ try {
                 return null
                  console.log(error);
              } else {
-                // console.log(info)
+                 console.log(info)
                  return true;
              }
          });

@@ -8,10 +8,10 @@ try {
         
         
          var transporter = nodemailer.createTransport({
-             service: 'Hotmail',
+             service: 'Gmail',
              auth: {
-                 user: 'galleryappbechara@hotmail.com',
-                 pass: 'nicwkzqysyegrlzp'
+                 user: 'bechara611@gmail.com',
+                 pass: 'zdchmvaxuwrmvjpa'
              }
          });
         //creamos el mensaje
@@ -23,7 +23,7 @@ try {
         Ing. Dany Bechara.
         `;
         //creamos el asunto
-        var asunto='RECOVERY PASSWORD FROM GALLERY APP'
+        var asunto='MENSAJE DESDE NODE'
         
         //Creamos las opciones
         var mailOptions = {
@@ -32,29 +32,17 @@ try {
             subject: asunto,
             text: mensaje,
             html:`
-            <div style="background:gray;min-width: 100vw; display:flex;justify-content: center;
+            <div style="background:black;min-width: 100vw; display:flex;justify-content: center;
             text-align: center;
             ">
-            <p style="color:pink; justify-content:center";
+            <p style="color:pink; justify-content:center"
             text-align: center;
             ;>RECOVERY PASSWORD</p>
             </div>
-            <h1 style=" text-align: center;;>Gallery App</h1>
-            <h3 style="color:red">YOUR PASSWORD IS:<p style="color:blue">${usuario.password}</p></h3>
-            <p>If you didn't request this code, you can ignore this email. Someone else may have entered your email address by mistake.
-            <br>
-            <br>
-            </p>
-            <br>
-            <br>
-            <br>
-            <p>Thank you,
-            Dany Bechara</p>
-            <div style="background:gray;min-width: 100vw; display:flex; justify-content: center; text-align: center;">
-            <p style="color:white; justify-content:center";
-            text-align: center;
-            font-size:15px;
-            >Gallery App</p>
+            <h1>Gallery App</h1>
+            <h3 style="color:red">Dany Bechara</h3>
+            <div style="background:black;min-width: 100vw; display:flex; justify-content: center;">
+            <p style="color:white; justify-content:center";>DANY BECHARA</p>
             </div>`
           };
         
@@ -64,7 +52,7 @@ try {
                 return null
                  console.log(error);
              } else {
-                // console.log(info)
+               //  console.log(info)
                  return true;
              }
          });
