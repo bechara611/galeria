@@ -19,6 +19,7 @@ const cloudinary_1 = __importDefault(require("cloudinary"));
 cloudinary_1.default.v2.config(process.env.CLOUDINARY_URL);
 const postUpload = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        //comprobamos si hay algo cargado en los files, recuerda el middleware de fileupload en tu clase server para que esto valga
         if (!req.files || Object.keys(req.files).length === 0) {
             return res.status(400).json({
                 errors: {
@@ -26,6 +27,7 @@ const postUpload = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                 }
             });
         }
+        //ahora comparamos que exista un archivo llamado imagenes que se pasa por la raw-data
         if (!req.files.imagenes) {
             return res.status(400).json({
                 errors: {
@@ -33,18 +35,38 @@ const postUpload = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                 }
             });
         }
+        //al haber comprobado que haya datos, los extraemos de manera correcta, 
         const { imagenes } = req.files;
+        //extraemos tambien el token que pasaremos por el header
         const token = req.header('x-token');
         var img = '';
-        //-----------------------------------------------------------------------------------------
-        //IMPORTANT VAMOS A COMPROBAR EL TOKEN QUE VAMOS A RECIBIR DEL HEADER
         const Payload = yield (0, JWT_1.verificarYretornarJWT)(token);
-        // console.log(Payload)
-        //-----------------------------------------------------------------------------------------
-        // ACA POR CADA IMAGEN QUE SE HAYA CARGADO AL REQ.FILES, se va a ejecutar el codigo de cloudinary
-        //si hay mas de un archivo....
-        if (Object.keys(req.files).length > 1) {
+        //este condicional es muy especial, significa que imagenes si tiene 9 llaves o 9 propiedades,
+        //es debido a que es solo un archivo, ya que siempre al subir una sola imagen, se generan nueve 
+        //propiedades, entonces es la parte para que se suba 1 sola foto
+        if (Object.keys(imagenes).length === 9) {
+            //esta parte es porque si no se hace asi, typescript no me reconoce el tempFilePath
+            const { tempFilePath } = req.files.imagenes;
+            const respuesta = yield cloudinary_1.default.v2.uploader.upload(tempFilePath)
+                .then((data) => __awaiter(void 0, void 0, void 0, function* () {
+                //  console.log(data.secure_url)
+                img = data.secure_url;
+                const usuarioImagenGuardar = new UsuarioEimagen_1.default({
+                    usuario: ID_user_mongo,
+                    img: img
+                });
+                yield usuarioImagenGuardar.save();
+            }))
+                .catch((error) => { return console.log(error); });
+            return res.status(200).json({ msg: 'SUCCESS', ID_user_mongo, imagenes });
+        }
+        //ahora aca yo coloca si el numero de llaves o propiedades es igual o mayor a dos, ya que
+        //cuando se sube mas de 1 archivo, las propiedades se agrupan entonces ya es distinto
+        //y coloco tambien que sea diferente a 9 porque yo se que haciendo pruebas, el 9 de 
+        //numero de propiedades, es unicamente cuando se sube 1 archivo.
+        if (Object.keys(imagenes).length >= 2 && Object.keys(imagenes).length != 9) {
             for (let imagen in imagenes) {
+                //  console.log(imagenes[imagen].tempFilePath)
                 const respuesta = yield cloudinary_1.default.v2.uploader.upload(imagenes[imagen].tempFilePath)
                     .then((data) => __awaiter(void 0, void 0, void 0, function* () {
                     //    console.log(imagenes[imagen].tempFilePath)
@@ -59,24 +81,12 @@ const postUpload = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                     .catch((error) => { console.log(error); });
                 // console.log(archivo[imagen].tempFilePath)
             }
-            //si solamente hay un archuivo
+            //si solamente hay un archivo......
         }
-        //SI HAY UN SOLO ARCHIVO EN LA REQ.FILES
-        if (Object.keys(req.files).length === 1) {
-            const { tempFilePath } = req.files.imagenes;
-            const respuesta = yield cloudinary_1.default.v2.uploader.upload(tempFilePath)
-                .then((data) => __awaiter(void 0, void 0, void 0, function* () {
-                //  console.log(data.secure_url)
-                img = data.secure_url;
-                const usuarioImagenGuardar = new UsuarioEimagen_1.default({
-                    usuario: ID_user_mongo,
-                    img: img
-                });
-                yield usuarioImagenGuardar.save();
-            }))
-                .catch((error) => { console.log(error); });
-        }
-        return res.status(200).json({ msg: 'SUCCESS', ID_user_mongo, imagenes });
+        //---------------------------------------------------------------------------------------------
+        //aca guardas la informacion generada de cloudinary y el usuario que hizo login y paso el x-token por el header
+        //--------------------------------------------------
+        return res.status(200).json({ msg: 'SUCCESS', ID_user_mongo });
     }
     catch (error) {
         return res.status(400).json({

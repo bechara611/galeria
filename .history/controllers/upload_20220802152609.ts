@@ -84,7 +84,7 @@ const postUpload = async (req: Request, res: Response) => {
         //---------------------------------------------------------------------------------------------
         //aca guardas la informacion generada de cloudinary y el usuario que hizo login y paso el x-token por el header
         //--------------------------------------------------
-        return res.status(200).json({ msg: 'SUCCESS', ID_user_mongo})
+        return res.status(200).json({ msg: 'SUCCESS', ID_user_mongo, imagenes })
 
     } catch (error) {
         return res.status(400).json({

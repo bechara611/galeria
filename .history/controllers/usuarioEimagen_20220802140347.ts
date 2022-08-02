@@ -12,10 +12,10 @@ const getUsuarioEimagenesPorId=async(req:Request,res:Response)=>{
 
     const usuarioEimagenes =await UsuarioEimagen.find({usuario:idUsuario}).populate('usuario')
 
-    if(usuarioEimagenes.length===0){
-      return res.json({msg:'NO DATA',usuarioEimagenes}) 
+    if(!usuarioEimagenes){
+      return    res.json({msg:'null',usuarioEimagenes}) 
     }
-    res.json({msg:'SUCCESS',usuarioEimagenes}) 
+    res.json({msg:'GET DE TODAS LAS IMAGENES PERO POR UN SOLO USUARIO',usuarioEimagenes}) 
 }
 
 export {getUsuarioEimagenes,getUsuarioEimagenesPorId}
