@@ -16,6 +16,7 @@ exports.postUpload = void 0;
 const JWT_1 = require("../helpers/JWT");
 const UsuarioEimagen_1 = __importDefault(require("../models/UsuarioEimagen"));
 const cloudinary_1 = __importDefault(require("cloudinary"));
+const comprobarExtensionImagen_1 = require("../helpers/comprobarExtensionImagen");
 cloudinary_1.default.v2.config(process.env.CLOUDINARY_URL);
 const postUpload = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -45,6 +46,25 @@ const postUpload = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         //es debido a que es solo un archivo, ya que siempre al subir una sola imagen, se generan nueve 
         //propiedades, entonces es la parte para que se suba 1 sola foto
         if (Object.keys(imagenes).length === 9) {
+            // const comprobarExtension= await comprobarExtensionImagen1(imagenes[0].name)
+            // console.log(comprobarExtension)
+            // if(!comprobarExtension){
+            //     return res.status(400).json({
+            //         errors: {
+            //             msg: 'EXTENSION NO VALIDA'
+            //         }
+            //     })
+            // }
+            let promesa = yield (0, comprobarExtensionImagen_1.comprobarExtensionImagen1)(imagenes.name)
+                .then((data) => { return data; })
+                .catch((error) => { return error; });
+            if (!promesa) {
+                return res.status(400).json({
+                    errors: {
+                        msg: 'ext no valida'
+                    }
+                });
+            }
             //esta parte es porque si no se hace asi, typescript no me reconoce el tempFilePath
             const { tempFilePath } = req.files.imagenes;
             const respuesta = yield cloudinary_1.default.v2.uploader.upload(tempFilePath)

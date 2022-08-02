@@ -4,15 +4,15 @@ const comprobarExtensionImagen1=async(file:any)=>{
     const extensionesValida=['jpeg','jpg','png','gif','ico']
     
     const extension=nombreConExtension[nombreConExtension.length-1]
-    return new Promise((resolve,reject)=>{
-        if(!extensionesValida.includes(extension)){
-            reject(null)
-           }
-           resolve(true)
-    })
+    
+    
+    console.log(`id:${extension}`)
+    //cloudinary.v2.uploader.destroy(id_publico_final)
 
-   
-
+    if(!extensionesValida.includes(extension)){
+        return null
+       }
+    return 'Si lo tiene'
 }
 
 export  {comprobarExtensionImagen1}

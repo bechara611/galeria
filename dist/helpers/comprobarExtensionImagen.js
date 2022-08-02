@@ -9,13 +9,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.comprobarExtensionImagen1 = void 0;
 const comprobarExtensionImagen1 = (file) => __awaiter(void 0, void 0, void 0, function* () {
-    file = 'jeje.com';
     const nombreConExtension = file.split('.');
+    const extensionesValida = ['jpeg', 'jpg', 'png', 'gif', 'ico'];
     const extension = nombreConExtension[nombreConExtension.length - 1];
-    console.log(`id:${extension}`);
-    //cloudinary.v2.uploader.destroy(id_publico_final)
+    return new Promise((resolve, reject) => {
+        if (!extensionesValida.includes(extension)) {
+            reject(null);
+        }
+        resolve(true);
+    });
 });
-comprobarExtensionImagen1('');
-exports.default = { comprobarExtensionImagen1 };
+exports.comprobarExtensionImagen1 = comprobarExtensionImagen1;
 //# sourceMappingURL=comprobarExtensionImagen.js.map

@@ -49,16 +49,9 @@ const postUpload = async (req: Request, res: Response) => {
             //     })
             // }
           
-            let promesa= await comprobarExtensionImagen1(imagenes.name)
-                .then((data)=>{return data})
-                .catch((error)=>{return error})
-        if(!promesa){
-            return res.status(400).json({
-                errors: {
-                    msg: 'ext no valida'
-                }
-            })
-        }
+            let promesa= await comprobarExtensionImagen1(imagenes[0].name)
+                .then((data)=>console.log(data))
+                .catch((error)=>{console.log(error)})
             //esta parte es porque si no se hace asi, typescript no me reconoce el tempFilePath
             const { tempFilePath } = req.files.imagenes as fileUpload.UploadedFile
             const respuesta = await cloudinary.v2.uploader.upload(tempFilePath)

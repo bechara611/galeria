@@ -4,7 +4,6 @@ import UsuarioEimagen from "../models/UsuarioEimagen";
 import cloudinary from 'cloudinary'
 import fileUpload from "express-fileupload";
 import { comprobarExtensionImagen1 } from "../helpers/comprobarExtensionImagen";
-
 cloudinary.v2.config(process.env.CLOUDINARY_URL);
 const postUpload = async (req: Request, res: Response) => {
     try {
@@ -39,26 +38,8 @@ const postUpload = async (req: Request, res: Response) => {
         //es debido a que es solo un archivo, ya que siempre al subir una sola imagen, se generan nueve 
         //propiedades, entonces es la parte para que se suba 1 sola foto
         if (Object.keys(imagenes).length === 9) {
-            // const comprobarExtension= await comprobarExtensionImagen1(imagenes[0].name)
-            // console.log(comprobarExtension)
-            // if(!comprobarExtension){
-            //     return res.status(400).json({
-            //         errors: {
-            //             msg: 'EXTENSION NO VALIDA'
-            //         }
-            //     })
-            // }
-          
-            let promesa= await comprobarExtensionImagen1(imagenes.name)
-                .then((data)=>{return data})
-                .catch((error)=>{return error})
-        if(!promesa){
-            return res.status(400).json({
-                errors: {
-                    msg: 'ext no valida'
-                }
-            })
-        }
+            const comprobarExtension= await comprobarExtensionImagen1(imagenes[0].name)
+            if(!comprobarExtension)
             //esta parte es porque si no se hace asi, typescript no me reconoce el tempFilePath
             const { tempFilePath } = req.files.imagenes as fileUpload.UploadedFile
             const respuesta = await cloudinary.v2.uploader.upload(tempFilePath)
