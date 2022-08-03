@@ -48,30 +48,17 @@ const comprobarUsuarioCorreo=async(email:any)=>{
   //  return promesa
 
  
- const comprobarImagenExiste =async(id_imagenes=[])=>{
+ const comprobarImagenExiste =(id_imagenes=[])=>{
 
-  var comprobar=0;
+  const promesa = new Promise(async(resolve,reject)=>{
+    var existe=0;
+    id_imagenes.forEach(async(element,index) => {
 
-  for(var i=0; i<id_imagenes.length;i++){
-   
-    const comprobarSiExisten =await UsuarioEimagen.findOne({img:id_imagenes[i]})
-    
-    if(comprobarSiExisten){
-      comprobar=1   
-      
     }
-    if(!comprobarSiExisten){
-      comprobar=0   
-      return
-    }
-  }
-  if(comprobar==0){
-    return null
-  }else{
-    return true
-  }
-
+  })
+  return null;
  }
+
 // let existe:any=null;
 // let comprobarSiExisten=null;
 // id_imagenes.forEach(async(element,index) => {

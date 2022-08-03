@@ -50,27 +50,10 @@ const comprobarUsuarioCorreo=async(email:any)=>{
  
  const comprobarImagenExiste =async(id_imagenes=[])=>{
 
-  var comprobar=0;
-
-  for(var i=0; i<id_imagenes.length;i++){
-   
+  for(var i=0; i<=id_imagenes.length;i++){
     const comprobarSiExisten =await UsuarioEimagen.findOne({img:id_imagenes[i]})
-    
-    if(comprobarSiExisten){
-      comprobar=1   
-      
-    }
-    if(!comprobarSiExisten){
-      comprobar=0   
-      return
-    }
   }
-  if(comprobar==0){
-    return null
-  }else{
-    return true
-  }
-
+return null
  }
 // let existe:any=null;
 // let comprobarSiExisten=null;

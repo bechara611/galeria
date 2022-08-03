@@ -32,7 +32,19 @@ const comprobarUsuarioCorreo=async(email:any)=>{
 }
 
 
+const comprobarImagenExiste=async(id_imagenes=[''])=>{
 
+   const promesa= new Promise(async(resolve,reject)=>{
+    id_imagenes.forEach(async(element) => {
+      const resultado=await UsuarioEimagen.find({img:element})
+    if(resultado){
+      return resolve(resultado)
+    }else{
+      return reject(null)
+    }
+    }   
+return promesa;
+   }
   //   let existe=false
    
   //   id_imagenes.forEach(async(element) => {
@@ -48,30 +60,8 @@ const comprobarUsuarioCorreo=async(email:any)=>{
   //  return promesa
 
  
- const comprobarImagenExiste =async(id_imagenes=[])=>{
-
-  var comprobar=0;
-
-  for(var i=0; i<id_imagenes.length;i++){
-   
-    const comprobarSiExisten =await UsuarioEimagen.findOne({img:id_imagenes[i]})
-    
-    if(comprobarSiExisten){
-      comprobar=1   
-      
-    }
-    if(!comprobarSiExisten){
-      comprobar=0   
-      return
-    }
-  }
-  if(comprobar==0){
-    return null
-  }else{
-    return true
-  }
-
- }
+ 
+}
 // let existe:any=null;
 // let comprobarSiExisten=null;
 // id_imagenes.forEach(async(element,index) => {

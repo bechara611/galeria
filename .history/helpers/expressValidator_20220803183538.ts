@@ -53,7 +53,7 @@ const comprobarUsuarioCorreo=async(email:any)=>{
   var comprobar=0;
 
   for(var i=0; i<id_imagenes.length;i++){
-   
+    console.log(id_imagenes[i])
     const comprobarSiExisten =await UsuarioEimagen.findOne({img:id_imagenes[i]})
     
     if(comprobarSiExisten){
@@ -65,12 +65,7 @@ const comprobarUsuarioCorreo=async(email:any)=>{
       return
     }
   }
-  if(comprobar==0){
-    return null
-  }else{
-    return true
-  }
-
+return null
  }
 // let existe:any=null;
 // let comprobarSiExisten=null;

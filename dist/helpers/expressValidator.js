@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.comprobarImagenExiste = exports.comprobarUsuarioCorreo = exports.comprobarCampos = void 0;
 const express_validator_1 = require("express-validator");
 const Usuario_1 = __importDefault(require("../models/Usuario"));
+const UsuarioEimagen_1 = __importDefault(require("../models/UsuarioEimagen"));
 //este metodo comprueba de forma general los errores de express-validator
 const comprobarCampos = (req, res, next) => {
     const errores = (0, express_validator_1.validationResult)(req);
@@ -41,18 +42,34 @@ const comprobarUsuarioCorreo = (email) => __awaiter(void 0, void 0, void 0, func
     }
 });
 exports.comprobarUsuarioCorreo = comprobarUsuarioCorreo;
-const comprobarImagenExiste = (id_imagenes = ['']) => __awaiter(void 0, void 0, void 0, function* () {
-    // const promesa= new Promise((resolve,reject)=>{
-    //   let existe=false
-    //   id_imagenes.forEach(async(element) => {
-    //   //  console.log(element)
-    //    const comprobarSiExisten =await UsuarioEimagen.find({img:element})
-    //    console.log(comprobarSiExisten)
-    //    if(comprobarSiExisten){existe=true}
-    //   }
-    //   if(existe){resolve(true)} else{reject(null)}
-    // })
-    //  return promesa
+//   let existe=false
+//   id_imagenes.forEach(async(element) => {
+//   //  console.log(element)
+//    const comprobarSiExisten =await UsuarioEimagen.find({img:element})
+//    console.log(comprobarSiExisten)
+//    if(comprobarSiExisten){existe=true}
+//   }
+//   if(existe){resolve(true)} else{reject(null)}
+// })
+//  return promesa
+const comprobarImagenExiste = (id_imagenes = []) => __awaiter(void 0, void 0, void 0, function* () {
+    var comprobar = 0;
+    for (var i = 0; i < id_imagenes.length; i++) {
+        const comprobarSiExisten = yield UsuarioEimagen_1.default.findOne({ img: id_imagenes[i] });
+        if (comprobarSiExisten) {
+            comprobar = 1;
+        }
+        if (!comprobarSiExisten) {
+            comprobar = 0;
+            return;
+        }
+    }
+    if (comprobar == 0) {
+        return null;
+    }
+    else {
+        return true;
+    }
 });
 exports.comprobarImagenExiste = comprobarImagenExiste;
 //# sourceMappingURL=expressValidator.js.map
