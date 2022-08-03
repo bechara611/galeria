@@ -4,7 +4,6 @@ import UsuarioEimagen from "../models/UsuarioEimagen";
 import cloudinary from 'cloudinary'
 import fileUpload from "express-fileupload";
 import { comprobarExtensionImagen1, comprobarExtensionImagen2 } from "../helpers/comprobarExtensionImagen";
-import { AnyExpression } from "mongoose";
 
 cloudinary.v2.config(process.env.CLOUDINARY_URL);
 const postUpload = async (req: Request, res: Response) => {
@@ -28,7 +27,7 @@ const postUpload = async (req: Request, res: Response) => {
 
         }
         //al haber comprobado que haya datos, los extraemos de manera correcta, 
-        const { imagenes} = req.files as AnyExpression ;
+        const { imagenes} = req.files ;
         //extraemos tambien el token que pasaremos por el header
         const token = req.header('x-token')
         var img: String = '';
@@ -95,7 +94,7 @@ const postUpload = async (req: Request, res: Response) => {
         }else{
             for (let imagen in imagenes) {
               //  console.log(imagenes[imagen].tempFilePath)
-                const respuesta = await cloudinary.v2.uploader.upload(imagenes[imagen].tempFilePath)
+                const respuesta = await cloudinary.v2.uploader.upload(imagenes[imagen].tempFilePath)ñ
                     .then(async (data) => {
                         //    console.log(imagenes[imagen].tempFilePath)
                         //  console.log(data.secure_url)
@@ -104,7 +103,7 @@ const postUpload = async (req: Request, res: Response) => {
                             usuario: ID_user_mongo,
                             img: img
                         })
-                        await usuarioImagenGuardar.save();
+                        await usuarioImagenGuardar.save()
                     })
                     .catch((error) => { console.log(error) })
                 // console.log(archivo[imagen].tempFilePath)
@@ -113,13 +112,14 @@ const postUpload = async (req: Request, res: Response) => {
             //si solamente hay un archivo......
          
         }
-
+            
         //---------------------------------------------------------------------------------------------
         //aca guardas la informacion generada de cloudinary y el usuario que hizo login y paso el x-token por el header
         //--------------------------------------------------
         return res.status(200).json({ msg: 'SUCCESS', ID_user_mongo})
-    }
-    } catch (error) {
+    
+    } 
+    catch (error) {
         return res.status(400).json({
             errors: {
                 msg: error

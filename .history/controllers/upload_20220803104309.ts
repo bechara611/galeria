@@ -4,7 +4,6 @@ import UsuarioEimagen from "../models/UsuarioEimagen";
 import cloudinary from 'cloudinary'
 import fileUpload from "express-fileupload";
 import { comprobarExtensionImagen1, comprobarExtensionImagen2 } from "../helpers/comprobarExtensionImagen";
-import { AnyExpression } from "mongoose";
 
 cloudinary.v2.config(process.env.CLOUDINARY_URL);
 const postUpload = async (req: Request, res: Response) => {
@@ -28,7 +27,7 @@ const postUpload = async (req: Request, res: Response) => {
 
         }
         //al haber comprobado que haya datos, los extraemos de manera correcta, 
-        const { imagenes} = req.files as AnyExpression ;
+        const { imagenes} = req.files ;
         //extraemos tambien el token que pasaremos por el header
         const token = req.header('x-token')
         var img: String = '';

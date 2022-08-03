@@ -70,9 +70,15 @@ const borrarVariasImagenCloudinaryPromesa=async(link:any)=>{
   
    
 }
-//const vector = ['https://res.cloudinary.com/dscpbsjbj/image/upload/v1659539139/snc123.ico','https://res.cloudinary.com/dscpbsjbj/image/upload/v1659539139/snc456.ico']
+const vector = ['https://res.cloudinary.com/dscpbsjbj/image/upload/v1659539139/snc123.ico','https://res.cloudinary.com/dscpbsjbj/image/upload/v1659539139/snc456.ico']
 
+const metodo = async(vector)=>{
+    const resultado = await borrarVariasImagenCloudinaryPromesa(vector)
+    .then((data)=>{return true})
+    .catch((error)=>{return null})
+console.log(resultado)
 
+}
 //metodo(vector)
-//borrarImagenCloudinary('')
-export default {borrarImagenCloudinary,borrarVariasImagenCloudinaryPromesa}
+borrarImagenCloudinary('')
+export default {borrarImagenCloudinary}

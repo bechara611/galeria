@@ -75,4 +75,4 @@ const borrarVariasImagenCloudinaryPromesa=async(link:any)=>{
 
 //metodo(vector)
 //borrarImagenCloudinary('')
-export default {borrarImagenCloudinary,borrarVariasImagenCloudinaryPromesa}
+export default {borrarImagenCloudinary}

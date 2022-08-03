@@ -13,7 +13,8 @@ const borrarImagenCloudinary=async(link:any)=>{
         
         link='https://res.cloudinary.com/dscpbsjbj/image/upload/v1659539139/snc0jxrafmu2xw77mdku.ico'
         const nombreConExtension=link.split('/')
-       
+        console.log(nombreConExtension)
+        console.log(nombreConExtension[nombreConExtension.length-1])
         const id_publicoYextension=nombreConExtension[nombreConExtension.length-1].split('.');
         
         
@@ -34,9 +35,44 @@ const borrarImagenCloudinary=async(link:any)=>{
 }
 
 
+const borrarVariasImagenCloudinary=async(link:any)=>{
+    try {
+        let resultado:any
+        link.forEach(async(element,index:any) => {
+            
+           
+            const nombreConExtension=link[index].split('/')
+            
+            const id_publicoYextension=nombreConExtension[nombreConExtension.length-1].split('.');
+            
+            
+            const id_publico_final=id_publicoYextension[id_publicoYextension.length-2]
+            
+            
+          //   console.log(`id del index numero ${index} :${id_publico_final}`)
+              resultado = await cloudinary.v2.uploader.destroy(id_publico_final)
+             .then((data)=>{
+               console.log(data)
+                return true})
+            .catch((error)=>{
+                console.log(error)
+                return null})
 
-const borrarVariasImagenCloudinaryPromesa=async(link:any)=>{
+               
+        });
+      
+        return resultado;
+      //  link='https://res.cloudinary.com/dscpbsjbj/image/upload/v1659539139/snc0jxrafmu2xw77mdku.ico'
+       
+       
+    } catch (error) {
+        console.log(error)
+        return null
+    }
    
+}
+const borrarVariasImagenCloudinaryPromesa=async(link:any)=>{
+    try {
         let resultado:any
         const promesa = new Promise((resolve,reject)=>{
             link.forEach(async(element,index:any) => {
@@ -52,10 +88,11 @@ const borrarVariasImagenCloudinaryPromesa=async(link:any)=>{
                 
               //   console.log(`id del index numero ${index} :${id_publico_final}`)
                   resultado = await cloudinary.v2.uploader.destroy(id_publico_final)
-                 .then((data)=>{
-                  
+                 .then(async(data)=>{
+                 await  console.log(data)
                    resolve(true) })
-                .catch((error)=>{
+                .catch(async(error)=>{
+                  await  console.log(error)
                     reject(null) })
     
                    
@@ -65,14 +102,22 @@ const borrarVariasImagenCloudinaryPromesa=async(link:any)=>{
           //  link='https://res.cloudinary.com/dscpbsjbj/image/upload/v1659539139/snc0jxrafmu2xw77mdku.ico'
         })
       
-       return promesa;
        
-  
+       
+    } catch (error) {
+        console.log(error)
+        return null
+    }
    
 }
-//const vector = ['https://res.cloudinary.com/dscpbsjbj/image/upload/v1659539139/snc123.ico','https://res.cloudinary.com/dscpbsjbj/image/upload/v1659539139/snc456.ico']
+const vector = ['https://res.cloudinary.com/dscpbsjbj/image/upload/v1659539139/snc123.ico','https://res.cloudinary.com/dscpbsjbj/image/upload/v1659539139/snc456.ico']
 
+const metodo = async(vector)=>{
+    const resultado = await borrarVariasImagenCloudinaryPromesa(vector)
+    .then((data)=>{return true})
+    .catch((error)=>{return null})
+console.log(resultado)
 
-//metodo(vector)
-//borrarImagenCloudinary('')
-export default {borrarImagenCloudinary,borrarVariasImagenCloudinaryPromesa}
+}
+metodo(vector)
+export default {borrarImagenCloudinary}
