@@ -40,7 +40,7 @@ const deleteUsuarioImagen=async(req:Request,res:Response)=>{
 if(!existe){
   return res.status(400).json({
     errors: {
-        msg: 'ERROR-DELETE IMG2',
+        msg: 'ERROR-IMG NOT FOUND IN OUR BD',
 
     }
   

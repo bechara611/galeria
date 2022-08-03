@@ -48,7 +48,7 @@ const deleteUsuarioImagen = (req, res) => __awaiter(void 0, void 0, void 0, func
     if (!existe) {
         return res.status(400).json({
             errors: {
-                msg: 'ERROR-DELETE IMG2',
+                msg: 'ERROR-IMG NOT FOUND IN OUR BD',
             }
         });
     }
