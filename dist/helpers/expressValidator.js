@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.comprobarUsuarioCorreo = exports.comprobarCampos = void 0;
+exports.comprobarImagenExiste = exports.comprobarUsuarioCorreo = exports.comprobarCampos = void 0;
 const express_validator_1 = require("express-validator");
 const Usuario_1 = __importDefault(require("../models/Usuario"));
 //este metodo comprueba de forma general los errores de express-validator
@@ -41,4 +41,18 @@ const comprobarUsuarioCorreo = (email) => __awaiter(void 0, void 0, void 0, func
     }
 });
 exports.comprobarUsuarioCorreo = comprobarUsuarioCorreo;
+const comprobarImagenExiste = (id_imagenes = ['']) => __awaiter(void 0, void 0, void 0, function* () {
+    // const promesa= new Promise((resolve,reject)=>{
+    //   let existe=false
+    //   id_imagenes.forEach(async(element) => {
+    //   //  console.log(element)
+    //    const comprobarSiExisten =await UsuarioEimagen.find({img:element})
+    //    console.log(comprobarSiExisten)
+    //    if(comprobarSiExisten){existe=true}
+    //   }
+    //   if(existe){resolve(true)} else{reject(null)}
+    // })
+    //  return promesa
+});
+exports.comprobarImagenExiste = comprobarImagenExiste;
 //# sourceMappingURL=expressValidator.js.map

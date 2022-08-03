@@ -12,6 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.borrarVariasImagenCloudinaryPromesa = exports.borrarImagenCloudinary = void 0;
 const cloudinary_1 = __importDefault(require("cloudinary"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
@@ -38,6 +39,7 @@ const borrarImagenCloudinary = (link) => __awaiter(void 0, void 0, void 0, funct
         return null;
     }
 });
+exports.borrarImagenCloudinary = borrarImagenCloudinary;
 const borrarVariasImagenCloudinaryPromesa = (link) => __awaiter(void 0, void 0, void 0, function* () {
     let resultado;
     const promesa = new Promise((resolve, reject) => {
@@ -51,6 +53,7 @@ const borrarVariasImagenCloudinaryPromesa = (link) => __awaiter(void 0, void 0, 
                 resolve(true);
             })
                 .catch((error) => {
+                console.log(error);
                 reject(null);
             });
         }));
@@ -59,8 +62,5 @@ const borrarVariasImagenCloudinaryPromesa = (link) => __awaiter(void 0, void 0, 
     });
     return promesa;
 });
-//const vector = ['https://res.cloudinary.com/dscpbsjbj/image/upload/v1659539139/snc123.ico','https://res.cloudinary.com/dscpbsjbj/image/upload/v1659539139/snc456.ico']
-//metodo(vector)
-//borrarImagenCloudinary('')
-exports.default = { borrarImagenCloudinary, borrarVariasImagenCloudinaryPromesa };
+exports.borrarVariasImagenCloudinaryPromesa = borrarVariasImagenCloudinaryPromesa;
 //# sourceMappingURL=BorrarImagenCloudinary.js.map

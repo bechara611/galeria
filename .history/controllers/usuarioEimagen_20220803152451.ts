@@ -2,7 +2,6 @@ import { Request, Response } from "express"
 import { borrarVariasImagenCloudinaryPromesa } from "../helpers/BorrarImagenCloudinary";
 import UsuarioEimagen from "../models/UsuarioEimagen";
 import { AnyExpression } from 'mongoose';
-import { comprobarImagenExiste } from "../helpers/expressValidator";
 
 const getUsuarioEimagenes=(req:Request,res:Response)=>{
    
@@ -32,22 +31,7 @@ const getUsuarioEimagenesPorId=async(req:Request,res:Response)=>{
 const deleteUsuarioImagen=async(req:Request,res:Response)=>{
    const {id_imagenes}=req.body;
   
-   const existe = await comprobarImagenExiste(id_imagenes)
-                .then((data)=>{
-                  return data})
-                .catch((error)=>{
-                  return error})
-if(!existe){
-  return res.status(400).json({
-    errors: {
-        msg: 'ERROR-DELETE IMG2',
 
-    }
-  
-})
-}
-  
- 
    const resultado = await borrarVariasImagenCloudinaryPromesa(id_imagenes)
                   .then((data)=>{return data})
                   .catch((error)=>{return error})

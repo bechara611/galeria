@@ -33,23 +33,17 @@ const comprobarUsuarioCorreo=async(email:any)=>{
 
 
 const comprobarImagenExiste=async(id_imagenes:any=[''])=>{
-
-  // const promesa= new Promise((resolve,reject)=>{
-  //   let existe=false
-   
-  //   id_imagenes.forEach(async(element) => {
-  //   //  console.log(element)
-  //    const comprobarSiExisten =await UsuarioEimagen.find({img:element})
-  //    console.log(comprobarSiExisten)
-  //    if(comprobarSiExisten){existe=true}
-  //   }
-  //   if(existe){resolve(true)} else{reject(null)}
-    
-
-  // })
-  //  return promesa
-
- 
+  let comprobarSiExisten
+  id_imagenes.forEach(async(element) => {
+    comprobarSiExisten =await UsuarioEimagen.findOne({img:element})
+    if(!comprobarSiExisten){return}
+    });
+    if(comprobarSiExisten){
+      return true
+    }
+    else{
+      return null
+    }
  
 }
 // let existe:any=null;

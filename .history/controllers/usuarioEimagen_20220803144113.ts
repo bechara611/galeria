@@ -1,8 +1,6 @@
 import { Request, Response } from "express"
 import { borrarVariasImagenCloudinaryPromesa } from "../helpers/BorrarImagenCloudinary";
 import UsuarioEimagen from "../models/UsuarioEimagen";
-import { AnyExpression } from 'mongoose';
-import { comprobarImagenExiste } from "../helpers/expressValidator";
 
 const getUsuarioEimagenes=(req:Request,res:Response)=>{
    
@@ -17,57 +15,22 @@ const getUsuarioEimagenesPorId=async(req:Request,res:Response)=>{
     const usuarioEimagenes =await UsuarioEimagen.find({usuario:idUsuario}).populate('usuario')
 
     if(usuarioEimagenes.length===0){
-      return res.status(400).json({
-        errors: {
-            msg: 'DATA NOT FOUND',
-
-        },
-        usuarioEimagenes
-    })
-
+      return res.status(400).json({msg:'NO DATA',usuarioEimagenes}) 
     }
-    res.status(200).json({msg:'SUCCESS',usuarioEimagenes}) 
+    res.json({msg:'SUCCESS',usuarioEimagenes}) 
 }
 
 const deleteUsuarioImagen=async(req:Request,res:Response)=>{
    const {id_imagenes}=req.body;
-  
-   const existe = await comprobarImagenExiste(id_imagenes)
-                .then((data)=>{
-                  return data})
-                .catch((error)=>{
-                  return error})
-if(!existe){
-  return res.status(400).json({
-    errors: {
-        msg: 'ERROR-DELETE IMG2',
 
-    }
-  
-})
-}
-  
- 
    const resultado = await borrarVariasImagenCloudinaryPromesa(id_imagenes)
                   .then((data)=>{return data})
                   .catch((error)=>{return error})
 
 if(!resultado){
-  return res.status(400).json({
-    errors: {
-        msg: 'ERROR-DELETE IMG',
 
-    }
-  
-})
 }
-
-id_imagenes.forEach(async(element,index) => {
-  const BorrarDelModelo =await UsuarioEimagen.findOneAndDelete({img:element})
-});
-
-
-res.status(200).json({msg:'IMG DELETED',resultado})
+res.status(200).json({msg:'ok',resultado})
 }
 
 export {getUsuarioEimagenes,getUsuarioEimagenesPorId,deleteUsuarioImagen}

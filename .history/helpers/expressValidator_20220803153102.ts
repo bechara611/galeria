@@ -34,22 +34,10 @@ const comprobarUsuarioCorreo=async(email:any)=>{
 
 const comprobarImagenExiste=async(id_imagenes:any=[''])=>{
 
-  // const promesa= new Promise((resolve,reject)=>{
-  //   let existe=false
-   
-  //   id_imagenes.forEach(async(element) => {
-  //   //  console.log(element)
-  //    const comprobarSiExisten =await UsuarioEimagen.find({img:element})
-  //    console.log(comprobarSiExisten)
-  //    if(comprobarSiExisten){existe=true}
-  //   }
-  //   if(existe){resolve(true)} else{reject(null)}
-    
+    id_imagenes.forEach((element,index) => {
 
-  // })
-  //  return promesa
-
- 
+      
+    }
  
 }
 // let existe:any=null;
@@ -65,4 +53,4 @@ const comprobarImagenExiste=async(id_imagenes:any=[''])=>{
 //   }
 
 // });
-export {comprobarCampos,comprobarUsuarioCorreo,comprobarImagenExiste}
+export {comprobarCampos,comprobarUsuarioCorreo}

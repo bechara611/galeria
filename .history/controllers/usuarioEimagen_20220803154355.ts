@@ -34,8 +34,10 @@ const deleteUsuarioImagen=async(req:Request,res:Response)=>{
   
    const existe = await comprobarImagenExiste(id_imagenes)
                 .then((data)=>{
+                  console.log('ACA')
                   return data})
                 .catch((error)=>{
+                  console.log('reject')
                   return error})
 if(!existe){
   return res.status(400).json({

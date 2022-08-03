@@ -11,8 +11,8 @@ router.get('/',[
     comprobarCampos
 ],getUsuarioEimagenesPorId)
 
-router.delete('/',[
-    check('id_imagenes','Error, DATA NOT FOUND ( id_imagenes )').not().isEmpty(),
+router.get('/',[
+    check('id_imagenes','Error, DATA NOT FOUND').not().isEmpty(),
     comprobarCampos
 ],deleteUsuarioImagen)
 

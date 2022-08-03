@@ -61,11 +61,11 @@ const borrarVariasImagenCloudinaryPromesa=async(link:any)=>{
     
                    
             });
-           
+            console.log(resultado)
             return resultado;
           //  link='https://res.cloudinary.com/dscpbsjbj/image/upload/v1659539139/snc0jxrafmu2xw77mdku.ico'
         })
-  
+      console.log(promesa)
        return promesa;
        
   
