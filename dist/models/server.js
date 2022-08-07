@@ -44,6 +44,7 @@ const routerLogin = __importStar(require("./../routes/login"));
 const routerUpload = __importStar(require("./../routes/upload"));
 const config_1 = require("../db/config");
 const express_fileupload_1 = __importDefault(require("express-fileupload"));
+const controladorSockets_1 = require("../controllers/controladorSockets");
 dotenv_1.default.config();
 class Server {
     constructor() {
@@ -58,6 +59,11 @@ class Server {
         };
         this.Rutas();
         this.BaseDatos();
+        //sockets
+        this.server = require('http').createServer(this.app);
+        this.io = require('socket.io')(this.server);
+        //comandos del sockets
+        this.sockets();
     }
     Middlewares() {
         //Middleware para servir una carpeta public por defecto
@@ -72,7 +78,7 @@ class Server {
         }));
     }
     Puerto() {
-        this.app.listen(this.port, () => {
+        this.server.listen(this.port, () => {
             console.log(`App corriendo en ${this.port}`);
         });
     }
@@ -87,6 +93,11 @@ class Server {
         return __awaiter(this, void 0, void 0, function* () {
             yield (0, config_1.conectarDB)();
         });
+    }
+    sockets() {
+        // this.io.on('connection',(socket)=>controladorSocket(socket))
+        // this.io.on('connection',(socket)=>controladorSocket(socket))
+        this.io.on('connection', (socket) => (0, controladorSockets_1.controladorSocket)(socket));
     }
 }
 exports.default = Server;

@@ -7,8 +7,6 @@ import * as routerLogin from './../routes/login'
 import * as routerUpload from './../routes/upload'
 import { conectarDB } from '../db/config';
 import fileUpload from 'express-fileupload'
-import { controladorSocket } from '../controllers/controladorSockets';
-
 
 dotenv.config();
 
@@ -39,9 +37,6 @@ class Server {
         this.server= require('http').createServer(this.app)
 	
         this.io = require('socket.io')(this.server);
-
-        //comandos del sockets
-        this.sockets();
     }
 
 
@@ -59,7 +54,7 @@ class Server {
     }
 
     Puerto() {
-        this.server.listen(this.port, () => {
+        this.app.listen(this.port, () => {
             console.log(`App corriendo en ${this.port}`)
         })
     }
@@ -74,14 +69,6 @@ class Server {
    async BaseDatos(){
         await conectarDB();
     }
-
-    sockets(){
-       // this.io.on('connection',(socket)=>controladorSocket(socket))
-       // this.io.on('connection',(socket)=>controladorSocket(socket))
-       this.io.on('connection',(socket)=>controladorSocket(socket))
-    }
-   
-    
 }
 
 export default Server;

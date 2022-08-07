@@ -9,7 +9,6 @@ import { conectarDB } from '../db/config';
 import fileUpload from 'express-fileupload'
 import { controladorSocket } from '../controllers/controladorSockets';
 
-
 dotenv.config();
 
 
@@ -76,12 +75,9 @@ class Server {
     }
 
     sockets(){
-       // this.io.on('connection',(socket)=>controladorSocket(socket))
-       // this.io.on('connection',(socket)=>controladorSocket(socket))
-       this.io.on('connection',(socket)=>controladorSocket(socket))
+        //this.io.on('connection',(socket)=>controladorSocket(socket,this.io))
+        this.io.on('connection',()=>controladorSocket())
     }
-   
-    
 }
 
 export default Server;

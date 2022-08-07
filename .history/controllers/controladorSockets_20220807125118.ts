@@ -1,0 +1,5 @@
+const controladorSocket=()=>{
+
+}
+
+export {controladorSocket}

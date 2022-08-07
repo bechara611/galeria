@@ -9,7 +9,6 @@ import { conectarDB } from '../db/config';
 import fileUpload from 'express-fileupload'
 import { controladorSocket } from '../controllers/controladorSockets';
 
-
 dotenv.config();
 
 
