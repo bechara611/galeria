@@ -20,10 +20,10 @@ const EnviarCorreo2 = (email = null) => __awaiter(void 0, void 0, void 0, functi
             const usuario = yield Usuario_1.default.findOne({ correo: email });
             //Requerimos el paquete
             var transporter = nodemailer_1.default.createTransport({
-                service: 'Hotmail',
+                service: 'Gmail',
                 auth: {
-                    user: 'galleryappbechara@hotmail.com',
-                    pass: 'wtlnpdyvrmrxiqnf'
+                    user: 'galleryappbechara@gmail.com',
+                    pass: 'tkwavaxtitzmdlzp'
                 }
             });
             //creamos el mensaje
