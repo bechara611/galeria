@@ -147,15 +147,24 @@ const RecuperarPassword = (req, res) => __awaiter(void 0, void 0, void 0, functi
         }
         //TODO METODO DE ENVIAR PASSWORD
         //METODO DE ENVIAR EL PASSWORD ACTUAL   POR CORREO
-        const respuesta = yield (0, RecuperarPassword_1.default)(email);
+        const respuesta = yield (0, RecuperarPassword_1.default)(email)
+            .then((respuesta) => {
+            return respuesta;
+        })
+            .then((error) => {
+            return error;
+        });
+        // console.log(respuesta)
+        if (respuesta) {
+            res.status(200).json({
+                msg: 'The password was send to the email. Please check.',
+                email,
+                respuesta
+            });
+        }
         if (!respuesta) {
             return res.status(400).json({ errors: { msg: `INTERNAL ERROR: RECOVERY PASSWORD` } });
         }
-        res.status(200).json({
-            msg: 'The password was send to the email. Please check.',
-            email,
-            respuesta
-        });
     }
     catch (error) {
         return res.status(400).json({ errors: { msg: `Error en el metodo de recuperar el password   ${error}` } });

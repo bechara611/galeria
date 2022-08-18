@@ -157,25 +157,23 @@ const RecuperarPassword = async(req: Request, res: Response)=>{
 //METODO DE ENVIAR EL PASSWORD ACTUAL   POR CORREO
     const respuesta= await EnviarCorreo2(email)
     .then((respuesta)=>{
-      return respuesta
-     
-       
-    })
-    .then((error)=>{
-        return error
-    })
-
-      // console.log(respuesta)
-      if(respuesta){
+        if(!respuesta){
+            return res.status(400).json({ errors: { msg: `INTERNAL ERROR: RECOVERY PASSWORD` } })
+        }
+    
+       // console.log(respuesta)
+       if(respuesta){
         res.status(200).json({
             msg:'The password was send to the email. Please check.',
             email,
             respuesta
            })  
        }
-    if(!respuesta){
-        return res.status(400).json({ errors: { msg: `INTERNAL ERROR: RECOVERY PASSWORD` } })
-    }
+       
+    })
+    .then((error)=>{
+        return res.status(400).json({ errors: { msg: `Error en el metodo de recuperar el password   ${error}` } })
+    })
 
     
    

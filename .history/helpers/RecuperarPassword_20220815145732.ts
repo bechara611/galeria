@@ -9,10 +9,10 @@ return new Promise(async(resolve,reject)=>{
             
             
              var transporter = nodemailer.createTransport({
-                 service: 'Gmail',
+                 service: 'Hotmail',
                  auth: {
-                     user: 'galleryappbechara@gmail.com',
-                     pass: 'tkwavaxtitzmdlzp'
+                     user: 'galleryappbechara@hotmail.com',
+                     pass: 'nicwkzqysyegrlzp'
                  }
              });
             //creamos el mensaje
@@ -62,11 +62,11 @@ return new Promise(async(resolve,reject)=>{
               //ejecutamos 
           await   transporter.sendMail(mailOptions, (error, info) => {
                  if (error) {
-                    // console.log(error)
+                    console.log(error)
                         reject(null)
                     
                  } else {
-                    //  console.log(info)
+                     console.log(info)
                     //return info
                      resolve(true)
                  }

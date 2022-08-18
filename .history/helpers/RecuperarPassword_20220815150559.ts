@@ -9,10 +9,10 @@ return new Promise(async(resolve,reject)=>{
             
             
              var transporter = nodemailer.createTransport({
-                 service: 'Gmail',
+                 service: 'Hotmail',
                  auth: {
-                     user: 'galleryappbechara@gmail.com',
-                     pass: 'tkwavaxtitzmdlzp'
+                     user: 'galleryappbechara@hotmail.com',
+                     pass: 'wtlnpdyvrmrxiqnf'
                  }
              });
             //creamos el mensaje
