@@ -91,7 +91,7 @@ const postUpload = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             if (!promesa) {
                 return res.status(400).json({
                     errors: {
-                        msg: 'ext no valida'
+                        msg: 'Please, choose a valid image'
                     }
                 });
             }
