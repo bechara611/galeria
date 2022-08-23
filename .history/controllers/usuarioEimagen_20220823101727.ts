@@ -12,13 +12,13 @@ res.json({msg:'GET DE TODAS LAS IMAGENES Y USUARIOS'})
 
 const getUsuarioEimagenesPorId=async(req:Request,res:Response)=>{
     const {idUsuario2}=req.body;
-
+    console.log(idUsuario2)
     //const {id_imagenes}=req.body;
 
     const usuarioEimagenes =await UsuarioEimagen.find({usuario:idUsuario2}).populate('usuario')
 
     if(usuarioEimagenes.length===0){
-      return res.status(200).json({
+      return res.status(400).json({
         errors: {
             msg: 'DATA NOT FOUND',
 

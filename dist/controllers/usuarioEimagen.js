@@ -22,11 +22,11 @@ const getUsuarioEimagenes = (req, res) => {
 };
 exports.getUsuarioEimagenes = getUsuarioEimagenes;
 const getUsuarioEimagenesPorId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { idUsuario } = req.body;
+    const { idUsuario2 } = req.body;
     //const {id_imagenes}=req.body;
-    const usuarioEimagenes = yield UsuarioEimagen_1.default.find({ usuario: idUsuario }).populate('usuario');
+    const usuarioEimagenes = yield UsuarioEimagen_1.default.find({ usuario: idUsuario2 }).populate('usuario');
     if (usuarioEimagenes.length === 0) {
-        return res.status(400).json({
+        return res.status(200).json({
             errors: {
                 msg: 'DATA NOT FOUND',
             },

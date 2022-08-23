@@ -18,7 +18,7 @@ const getUsuarioEimagenesPorId=async(req:Request,res:Response)=>{
     const usuarioEimagenes =await UsuarioEimagen.find({usuario:idUsuario2}).populate('usuario')
 
     if(usuarioEimagenes.length===0){
-      return res.status(200).json({
+      return res.status(400).json({
         errors: {
             msg: 'DATA NOT FOUND',
 

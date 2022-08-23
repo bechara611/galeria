@@ -6,7 +6,7 @@ const router= Router();
 
 
 //obtener todas las imagenes o link de imagenes con respecto a un ID de un usuario
-router.post('/',[
+router.get('/',[
     check('idUsuario2','Error, USER MongoID not valid').isMongoId(),
     comprobarCampos
 ],getUsuarioEimagenesPorId)
